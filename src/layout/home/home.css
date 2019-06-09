@@ -1,0 +1,59 @@
+p {
+    font-family: 'PT Serif', serif;
+}
+h1, h2  {
+    font-family: 'Roboto Slab', serif;
+}
+
+.list-group.in-row,
+.list-group-item.in-row{
+    display: block;
+}
+.headline {
+    font-weight: 700;
+}
+.card-body{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card-description{
+    padding-left: 20px;
+    flex: 380px 1 1;
+}
+.img {
+    width: 375px;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .card-description{
+        padding-left: 0;
+    }
+    .image {
+        width: 100%;
+    }
+    .img {
+        width: 100%;
+    }
+}
+/*  */
+.read-review {
+    text-transform: capitalize;
+    color: #326891;
+    font-size: 13px;
+    text-decoration: none;
+}
+.read-review:hover {
+    text-decoration: underline;
+}
+
+.author {
+    font-family: 'Roboto Slab', serif;
+    color: #999999;
+    font-size: 11px;
+    /* word-spacing: -4px; */
+    margin: 5px 20px;
+}
+.link-text{
+    margin-bottom: 6px;
+}
