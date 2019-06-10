@@ -1,7 +1,9 @@
 import React from 'react'
 import moment from 'moment'
-import ListGroup from '../../components/ListGroup/ListGroup'
-import ListGroupItem from '../../components/ListGroup/ListGroupItem'
+import ListGroup from '../../components/listGroup/ListGroup'
+import ListGroupItem from '../../components/listGroup/ListGroupItem'
+import Image from '../../components/Image/Image'
+import Loading from '../preloader/Preloader'
 
 import './home.css'
 
@@ -22,8 +24,10 @@ const Content = (props) => {
                 {results.map(({
                     byline,
                     display_title,
-                    headline, multimedia,
-                    link, summary_short,
+                    headline, 
+                    multimedia,
+                    link, 
+                    summary_short,
                     publication_date
                 }) => 
                     <ListGroupItem 
@@ -34,13 +38,17 @@ const Content = (props) => {
                         <p className="headline">{headline}</p>
                         <div className="card-body">
                             <div className="image">
-                                <img className="img" src={multimedia.src} alt="image"/>
+                                {/* <img className="img" src={multimedia.src} alt="movies foto" /> */}
+                                <Image 
+                                    className="img" 
+                                    src={multimedia ? multimedia.src : false}
+                                />
                             </div>
                             <div className="card-description">
                                 <p>{summary_short}</p>
                                 <p className="author">By {byline}</p>
                                 <p className="author">
-                                    {moment(publication_date).add(1,'year').format('LL')}
+                                    {moment(publication_date).add(0,'year').format('LL')}
                                 </p>
                                 <p className="link-text">{link.suggested_link_text}</p>
                                 <a href={link.url} className="read-review">read review</a>
@@ -53,4 +61,4 @@ const Content = (props) => {
     )
 }
 
-export default Content
+export default Loading('res')(Content)

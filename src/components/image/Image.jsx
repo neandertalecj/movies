@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import './Image.css'
 
 const Image = ({
-    src, alt, className, width, height, circle, ...attrs
+    src, alt, className, circle, ...attrs
 }) => {
 
     const classes = classNames(
@@ -14,7 +14,7 @@ const Image = ({
     )
 
     if (!src) {
-        src =`https://via.placeholder.com/${width}x${height}`
+        src =`https://via.placeholder.com/100x100`
     }
 
     return (
@@ -22,8 +22,8 @@ const Image = ({
             src={src}
             alt={alt}
             className={classes}
-            width={width}
-            height={height}
+            // width={width}
+            // height={height}
             {...attrs}
         />
     )
@@ -33,8 +33,8 @@ const Image = ({
 Image.propTypes = {
     src: PropTypes.string,
     alt: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
+    // width: PropTypes.number,
+    // height: PropTypes.number,
     circle: PropTypes.bool,
     className: PropTypes.string,
 }
@@ -42,8 +42,8 @@ Image.propTypes = {
 Image.defaultProps = {
     src: '',
     alt: 'image',
-    width: 100,
-    height: 100,
+    // width: 100,
+    // height: 100,
     circle: false,
     className: ''
 }
