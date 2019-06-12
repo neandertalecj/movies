@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 
 import Home from './layout/home/home'
 import HelloPage from './layout/hellopage'
+import Critics from './layout/critics/Critics'
 import Default from './layout/default-page/Default'
 
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/hellopage" component={HelloPage} />
+                <Route path="/critics" component={Critics} />
                 <Route component={Default} />
             </Switch>
         </App>

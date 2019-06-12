@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import ListGroup from '../../components/listGroup/ListGroup'
 import ListGroupItem from '../../components/listGroup/ListGroupItem'
-import Image from '../../components/Image/Image'
+import Image from '../../components/image/Image'
 import Loading from '../preloader/Preloader'
 
 import './home.css'
@@ -42,6 +42,8 @@ const Content = (props) => {
                                 <Image 
                                     className="img" 
                                     src={multimedia ? multimedia.src : false}
+                                    width={375}
+                                    height={250}
                                 />
                             </div>
                             <div className="card-description">

@@ -1,18 +1,35 @@
 import React, { Component } from 'react'
-import { HITS } from '../../Conf/config'
+import PropTypes from 'prop-types'
 
 import './Select.css'
 
 class Select extends Component {
     render() { 
-        const { onChange, value } = this.props
+        const { onChange, value, filter } = this.props
         return (
             <select onChange={onChange} value={value}>
-                {HITS.map(({ value, label }) =>
-                    <option key={value} value={value}>{label}</option>)}
+                {filter.map(({ value, label }) =>
+                    <option 
+                        key={value} 
+                        value={value}
+                    >
+                        {label}
+                    </option>)}
             </select>
         )
     }
+}
+
+Select.propTypes = {
+    onChange: PropTypes.func,
+    value: PropTypes.string,
+    filter: PropTypes.array,
+}
+
+Select.defaultProps = {
+    onChange: () => {},
+    value: '',
+    filter: [],
 }
  
 export default Select

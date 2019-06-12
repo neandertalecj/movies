@@ -9,7 +9,7 @@ https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=terminator&api-k
 https://api.nytimes.com/svc/movies/v2//reviews/search.json?query=terminator&opening-date=1980-01-01;1990-01-01&api-key=aX1nl6zhEuXOAKoADMNfQSJiMWGR2mGT
 
 #Get all movie reviews by A. O. Scott:
-https://api.nytimes.com/svc/movies/v2/critics/A.%20O.%20Scott.json?api-key=aX1nl6zhEuXOAKoADMNfQSJiMWGR2mGT
+https://api.nytimes.com/svc/movies/v2/reviews/A.%20O.%20Scott.json?api-key=aX1nl6zhEuXOAKoADMNfQSJiMWGR2mGT
 
 #Get movie critic names:
 https://api.nytimes.com/svc/movies/v2/critics/all.json?api-key=aX1nl6zhEuXOAKoADMNfQSJiMWGR2mGT

@@ -1,5 +1,5 @@
 
-export const HITS = [
+export const REVIEWSORT = [
     {
         value: '',
         label: 'none',
@@ -15,5 +15,17 @@ export const HITS = [
     {
         value: 'by-title',
         label: 'by-title',
+    },
+]
+
+
+export const TYPE = [
+    {
+        value: 'all',
+        label: 'all',
+    },
+    {
+        value: 'picks',
+        label: 'picks',
     },
 ]
