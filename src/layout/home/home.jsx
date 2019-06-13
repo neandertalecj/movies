@@ -17,8 +17,10 @@ class Home extends Component {
         page: 0,
         order: '',
         type: 'picks',
-        criticNames: {},
-        name: ''
+        // critics: {results: [{display_name: 'C'}]},
+        critics: {},
+        name: '',
+        suggestions: [],
     }
 
     componentDidMount(){
@@ -31,7 +33,7 @@ class Home extends Component {
 
         this.fetchData(url1, 'res')
         // name && 
-        this.fetchData(url2, 'criticNames')
+        this.fetchData(url2, 'critics')
     }
 
     fetchData = (url, value) => {
@@ -88,14 +90,53 @@ class Home extends Component {
             () => this.fetchData(0, this.state.type)
         )
     }
+    // ---- AutoComplete functioality
+    onTextChanged = e => {
+        const value = e.target.value
+        let suggestions = []
+        if (value.length > 0) {
+            const regex = new RegExp(` ${value}`, 'igm')
+            suggestions = this.getSeggestions().sort().filter(v => regex.test(v))
+        }
+        this.setState(() => ({ 
+            suggestions,
+            name: value
+        }))
+    }
+
+    suggestionSelected = value => {
+        this.setState(() => ({
+            name: value,
+            suggestions: [],
+        }))
+    }
+
+    renderSuggestion() {
+        const { suggestions } = this.state
+        if (suggestions.length === 0) {
+            return null
+        }
+        return (
+            <ul>
+                {suggestions.map(item => 
+                    <li onClick={() => this.suggestionSelected(item)}>{item}</li>
+                )}
+            </ul>
+        )
+    }
+
+    getSeggestions = () => 
+        this.state.critics.results.reduce((acc, cur) => ([...acc, cur.display_name]), [])
+    
+    // ---- The END of AutoComplete functioality
 
     render() {
         
         const { results = [], has_more = true } = this.state.res
-        const { page, order, type, criticNames } = this.state
+        const { page, order, type, critics } = this.state
         console.log(results)
         console.log('has_more', has_more) 
-        console.log('criticNames', criticNames)
+        console.log('critics', critics)
         return (
             <Fragment>
                 <Select
@@ -108,6 +149,15 @@ class Home extends Component {
                     value={type} 
                     filter={TYPE}
                 />
+                <div className="autocomplete">
+                    <input 
+                        value={this.state.name}
+                        onChange={this.onTextChanged}
+                        type="text"
+                    />
+                    {this.renderSuggestion()}
+                </div>
+                
                 <Content res={this.state.res} />
                 <Pagination 
                     page={page} 
