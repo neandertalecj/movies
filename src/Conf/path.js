@@ -5,5 +5,8 @@ const MY_API_KEY = 'aX1nl6zhEuXOAKoADMNfQSJiMWGR2mGT'
 const QUERY = 'query='
 const PAGE = 'offset='
 const ORDER = 'order='
+const REVIEWER = 'reviewer='
+const SEARCH = 'search.json'
+const PICKS = 'picks.json'
 
-export const Conf = { BASE_PATH, API_KEY, MY_API_KEY, QUERY, PAGE, ORDER }
+export const Conf = { BASE_PATH, API_KEY, MY_API_KEY, QUERY, PAGE, ORDER, REVIEWER, SEARCH, PICKS }

@@ -5,39 +5,46 @@ import { REVIEWSORT, TYPE } from '../../Conf/config'
 import Pagination from '../pagination/Pagination'
 import Content from './content'
 import Select from '../../components/select/Select'
+import Input from '../../components/input/Input'
+import AutoCompleteWraper from '../../components/autocomplete-wraper/autoCompleteWraper'
+import Button from '../../components/button/Button'
 
 import './home.css'
-
-// import Loading from '../preloader/Preloader'
-// const ContentHome = Loading('res')(Content)
 
 class Home extends Component {
     state = {
         res:  {},
         page: 0,
         order: '',
-        type: 'picks',
-        // critics: {results: [{display_name: 'C'}]},
+        // type: 'picks',
         critics: {},
         name: '',
         suggestions: [],
     }
 
     componentDidMount(){
-        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER } = Conf
+        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER, REVIEWER, SEARCH, PICKS } = Conf
         const { page, order, type, name } = this.state
 
-        let url1 = `${BASE_PATH}reviews/${type}.json?${API_KEY}${MY_API_KEY}&${PAGE}${page*20}&${ORDER}${order}`
+        // let url1 = `${BASE_PATH}reviews/${type}.json?${API_KEY}${MY_API_KEY}&${PAGE}${page*20}&${ORDER}${order}`
         let url2 = `${BASE_PATH}critics/all.json?${API_KEY}${MY_API_KEY}`
-        // let url3 =  `${BASE_PATH}reviews/${name}.json?${API_KEY}${MY_API_KEY}`
 
-        this.fetchData(url1, 'res')
-        // name && 
+        // let url8 = `${BASE_PATH}reviews/search.json?${REVIEWER}${name}&${API_KEY}${MY_API_KEY}`
+        // let url18 = `${BASE_PATH}reviews/${name ? SEARCH : PICKS}?${name && REVIEWER}${name}&${API_KEY}${MY_API_KEY}&${PAGE}${page*20}&${ORDER}${order}`
+
+        this.fetchData(this.getMainURL(), 'res')
         this.fetchData(url2, 'critics')
     }
 
-    fetchData = (url, value) => {
+    getMainURL = () => {
+        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER, REVIEWER, SEARCH, PICKS } = Conf
+        const { page, order, type, name } = this.state
 
+        let url = `${BASE_PATH}reviews/${name ? SEARCH : PICKS}?${name && REVIEWER}${name}&${API_KEY}${MY_API_KEY}&${PAGE}${page*20}&${ORDER}${order}`
+        return url
+    }
+
+    fetchData = (url, value) => {
         fetch(url)
             .then(res => res.json())
             .then(res => {
@@ -69,7 +76,7 @@ class Home extends Component {
         this.setState({
             page: number,
         }, () => {
-            this.fetchData(number)
+            this.fetchData(this.getMainURL(), 'res')
         })
     }
 
@@ -78,18 +85,18 @@ class Home extends Component {
                 order: value, 
                 page: 0 
             },
-            () => this.fetchData(0, this.state.order)
+            () => this.fetchData(this.getMainURL(), 'res')
         )
     }
 
-    setType = ({ target: { value }}) => {
-        this.setState({
-                type: value, 
-                page: 0 
-            },
-            () => this.fetchData(0, this.state.type)
-        )
-    }
+    // setType = ({ target: { value }}) => {
+    //     this.setState({
+    //             type: value, 
+    //             page: 0 
+    //         },
+    //         () => this.fetchData(0, this.state.type)
+    //     )
+    // }
     // ---- AutoComplete functioality
     onTextChanged = e => {
         const value = e.target.value
@@ -130,6 +137,19 @@ class Home extends Component {
     
     // ---- The END of AutoComplete functioality
 
+    getReviewsByCriticsName = () => {
+        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER, REVIEWER } = Conf
+        const { name } = this.state
+        // if (e.keyCode == 13 && name.length > 0) {
+        //     e.preventDefault()
+        //     e.stopPropagation()
+
+            let url = `${BASE_PATH}reviews/search.json?${REVIEWER}${name}&${API_KEY}${MY_API_KEY}`
+            this.fetchData(url, 'res')
+        // }
+        
+    }
+
     render() {
         
         const { results = [], has_more = true } = this.state.res
@@ -144,19 +164,24 @@ class Home extends Component {
                     value={order} 
                     filter={REVIEWSORT}
                 />
-                <Select
+                {/* <Select
                     onChange={this.setType} 
                     value={type} 
                     filter={TYPE}
-                />
-                <div className="autocomplete">
-                    <input 
+                /> */}
+                <AutoCompleteWraper>
+                    <Input
                         value={this.state.name}
                         onChange={this.onTextChanged}
                         type="text"
+                        label="Get all movie reviews by critic names"
+                        // onKeyUp={(e)=>this.getReviewsByCriticsName(this.state.name)}
                     />
+                    <Button 
+                        onClick={this.getReviewsByCriticsName}
+                    >Submit</Button>
                     {this.renderSuggestion()}
-                </div>
+                </AutoCompleteWraper>
                 
                 <Content res={this.state.res} />
                 <Pagination 

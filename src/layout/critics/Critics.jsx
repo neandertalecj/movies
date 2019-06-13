@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Conf } from '../../Conf/path'
-import ListGroup from '../../components/listGroup/ListGroup'
-import ListGroupItem from '../../components/listGroup/ListGroupItem'
+import ListGroup from '../../components/list-group/ListGroup'
+import ListGroupItem from '../../components/list-group/ListGroupItem'
 import Image from '../../components/image/Image'
 import Loading from '../preloader/Preloader'
 
