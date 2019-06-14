@@ -8,5 +8,8 @@ const ORDER = 'order='
 const REVIEWER = 'reviewer='
 const SEARCH = 'search.json'
 const PICKS = 'picks.json'
+const OPENING_DATE = 'opening-date='
 
-export const Conf = { BASE_PATH, API_KEY, MY_API_KEY, QUERY, PAGE, ORDER, REVIEWER, SEARCH, PICKS }
+export const Conf = { 
+    BASE_PATH, API_KEY, MY_API_KEY, QUERY, PAGE, ORDER, REVIEWER, SEARCH, PICKS, OPENING_DATE 
+}

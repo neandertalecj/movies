@@ -16,7 +16,7 @@ class Critics extends Component {
     }
 
     fetchData = (page, order, type) => {
-        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER } = Conf
+        const { BASE_PATH, API_KEY, MY_API_KEY } = Conf
         let url = `${BASE_PATH}critics/all.json?${API_KEY}${MY_API_KEY}`
         //let url =  `${BASE_PATH}reviews/${name}.json?${API_KEY}${MY_API_KEY}`
         fetch(url)

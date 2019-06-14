@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Conf } from '../../Conf/path'
-import { REVIEWSORT, TYPE } from '../../Conf/config'
+import { REVIEWSORT } from '../../Conf/config'
 
 import Pagination from '../pagination/Pagination'
 import Content from './content'
@@ -16,31 +16,29 @@ class Home extends Component {
         res:  {},
         page: 0,
         order: '',
-        // type: 'picks',
         critics: {},
         name: '',
         suggestions: [],
+        dateStart: '',
+        dateEnd: '',
     }
 
     componentDidMount(){
-        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER, REVIEWER, SEARCH, PICKS } = Conf
-        const { page, order, type, name } = this.state
+        const { BASE_PATH, API_KEY, MY_API_KEY } = Conf
 
-        // let url1 = `${BASE_PATH}reviews/${type}.json?${API_KEY}${MY_API_KEY}&${PAGE}${page*20}&${ORDER}${order}`
         let url2 = `${BASE_PATH}critics/all.json?${API_KEY}${MY_API_KEY}`
-
-        // let url8 = `${BASE_PATH}reviews/search.json?${REVIEWER}${name}&${API_KEY}${MY_API_KEY}`
-        // let url18 = `${BASE_PATH}reviews/${name ? SEARCH : PICKS}?${name && REVIEWER}${name}&${API_KEY}${MY_API_KEY}&${PAGE}${page*20}&${ORDER}${order}`
 
         this.fetchData(this.getMainURL(), 'res')
         this.fetchData(url2, 'critics')
     }
 
     getMainURL = () => {
-        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER, REVIEWER, SEARCH, PICKS } = Conf
-        const { page, order, type, name } = this.state
+        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER, REVIEWER, SEARCH, PICKS, OPENING_DATE } = Conf
+        const { page, order, name, dateStart, dateEnd } = this.state
+// 
+        let opening_date = dateStart && dateEnd ? `&${OPENING_DATE}${dateStart};${dateEnd}` : ''
 
-        let url = `${BASE_PATH}reviews/${name ? SEARCH : PICKS}?${name && REVIEWER}${name}&${API_KEY}${MY_API_KEY}&${PAGE}${page*20}&${ORDER}${order}`
+        let url = `${BASE_PATH}reviews/${name ? SEARCH : PICKS}?${name && REVIEWER}${name}&${API_KEY}${MY_API_KEY}&${PAGE}${page*20}&${ORDER}${order}${opening_date}`
         return url
     }
 
@@ -89,14 +87,6 @@ class Home extends Component {
         )
     }
 
-    // setType = ({ target: { value }}) => {
-    //     this.setState({
-    //             type: value, 
-    //             page: 0 
-    //         },
-    //         () => this.fetchData(0, this.state.type)
-    //     )
-    // }
     // ---- AutoComplete functioality
     onTextChanged = e => {
         const value = e.target.value
@@ -138,22 +128,23 @@ class Home extends Component {
     // ---- The END of AutoComplete functioality
 
     getReviewsByCriticsName = () => {
-        const { BASE_PATH, API_KEY, MY_API_KEY, PAGE, ORDER, REVIEWER } = Conf
-        const { name } = this.state
-        // if (e.keyCode == 13 && name.length > 0) {
-        //     e.preventDefault()
-        //     e.stopPropagation()
+        this.fetchData(this.getMainURL(), 'res')
+    }
 
-            let url = `${BASE_PATH}reviews/search.json?${REVIEWER}${name}&${API_KEY}${MY_API_KEY}`
-            this.fetchData(url, 'res')
-        // }
-        
+    setDate = ({ target }) => {
+        const value = target.value
+        const inputType = target.getAttribute('data-name')
+        this.setState({
+            [inputType]: value
+        }, () => {
+            this.fetchData(this.getMainURL(), 'res')
+        })
     }
 
     render() {
         
         const { results = [], has_more = true } = this.state.res
-        const { page, order, type, critics } = this.state
+        const { page, order, critics, dateStart, dateEnd } = this.state
         console.log(results)
         console.log('has_more', has_more) 
         console.log('critics', critics)
@@ -164,13 +155,26 @@ class Home extends Component {
                     value={order} 
                     filter={REVIEWSORT}
                 />
-                {/* <Select
-                    onChange={this.setType} 
-                    value={type} 
-                    filter={TYPE}
-                /> */}
+                <Input 
+                    id="date"
+                    data-name="dateStart"
+                    label="Start date"
+                    value={dateStart}
+                    onChange={this.setDate}
+                    type="date"
+                />
+                <Input 
+                    id="date"
+                    data-name="dateEnd"
+                    label="End date"
+                    value={dateEnd}
+                    onChange={this.setDate}
+                    width="200px"
+                    type="date"
+                />
                 <AutoCompleteWraper>
                     <Input
+                        id="critic-names"
                         value={this.state.name}
                         onChange={this.onTextChanged}
                         type="text"

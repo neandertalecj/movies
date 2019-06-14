@@ -28,7 +28,8 @@ const Content = (props) => {
                     multimedia,
                     link, 
                     summary_short,
-                    publication_date
+                    publication_date,
+                    opening_date,
                 }) => 
                     <ListGroupItem 
                         key={createKey([byline, display_title, publication_date])} 
@@ -47,7 +48,7 @@ const Content = (props) => {
                                 />
                             </div>
                             <div className="card-description">
-                                <p>{summary_short}</p>
+                                <p>{summary_short} <i className="author">Opening date {opening_date}</i></p>
                                 <p className="author">By {byline}</p>
                                 <p className="author">
                                     {moment(publication_date).add(0,'year').format('LL')}

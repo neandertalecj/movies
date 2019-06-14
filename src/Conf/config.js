@@ -17,15 +17,3 @@ export const REVIEWSORT = [
         label: 'by-title',
     },
 ]
-
-
-export const TYPE = [
-    {
-        value: 'all',
-        label: 'all',
-    },
-    {
-        value: 'picks',
-        label: 'picks',
-    },
-]
