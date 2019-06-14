@@ -4,41 +4,26 @@ import ListGroup from '../../components/list-group/ListGroup'
 import ListGroupItem from '../../components/list-group/ListGroupItem'
 import Image from '../../components/image/Image'
 import Loading from '../preloader/Preloader'
+import { withContext } from '../../context'
 
 import './Critics.css'
 
 class Critics extends Component {
-    state = { 
-        res: {}
-    }
-    componentDidMount(){
-        // const { page, order, type } = this.state
-        this.fetchData()
-    }
 
-    fetchData = (page, order, type) => {
+    componentDidMount(){
         const { BASE_PATH, API_KEY, MY_API_KEY } = Conf
         let url = `${BASE_PATH}critics/all.json?${API_KEY}${MY_API_KEY}`
-        //let url =  `${BASE_PATH}reviews/${name}.json?${API_KEY}${MY_API_KEY}`
-        fetch(url)
-            .then(res => res.json())
-            .then(res => {
-                this.setState({ res })
-            })
-            .catch(err => { throw err })
+
+        this.props.getData(url, 'resCritics')
     }
 
+    
+
     render() { 
-        const { results = [] } = this.state.res
-        console.log(results)
+        const { results = [] } = this.props.resCritics
         return ( 
             <div>
                 <h1>Critics</h1>
-                {/* {results.map(({ display_name }) => 
-                    <ul>
-                        <li>{display_name}</li>
-                    </ul>
-                )} */}
                  <ListGroup className="in-row">
                 {results.map(({
                     display_name,
@@ -72,4 +57,4 @@ class Critics extends Component {
     }
 }
  
-export default Critics;
+export default withContext(Loading('res')(Critics))

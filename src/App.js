@@ -11,6 +11,7 @@ import { Conf } from './Conf/path'
 class App extends Component {
     state = {
       res:  {},
+      resCritics: {},
       page: 0,
       order: '',
       critics: {},
@@ -145,7 +146,8 @@ class App extends Component {
     onChangeTextChanged: this.onTextChanged,
     onClickByCriticsName: this.getReviewsByCriticsName,
     renderReviews: this.renderSuggestion(),
-    onPagination: this.handlePageChange
+    onPagination: this.handlePageChange,
+    getData: this.fetchData,
   })
 
   render(){
