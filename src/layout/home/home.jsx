@@ -1,13 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { Conf } from '../../Conf/path'
-import { REVIEWSORT } from '../../Conf/config'
 
 import Pagination from '../pagination/Pagination'
 import Content from './content'
-import Select from '../../components/select/Select'
-import Input from '../../components/input/Input'
-import AutoCompleteWraper from '../../components/autocomplete-wraper/autoCompleteWraper'
-import Button from '../../components/button/Button'
+import Filter from '../filter/Filter'
 
 import './home.css'
 
@@ -144,50 +140,24 @@ class Home extends Component {
     render() {
         
         const { results = [], has_more = true } = this.state.res
-        const { page, order, critics, dateStart, dateEnd } = this.state
+        const { res, page, order, critics, dateStart, dateEnd, name } = this.state
         console.log(results)
         console.log('has_more', has_more) 
         console.log('critics', critics)
         return (
             <Fragment>
-                <Select
-                    onChange={this.setOrder} 
-                    value={order} 
-                    filter={REVIEWSORT}
+                <Filter 
+                    onChangeSetOrder={this.setOrder}
+                    valueOrder={order}
+                    onChangeSetDate={this.setDate}
+                    valueDateStart={dateStart}
+                    valueDateEnd={dateEnd}
+                    onChangeTextChanged={this.onTextChanged}
+                    valueName={name}
+                    onClickByCriticsName={this.getReviewsByCriticsName}
+                    renderReviews={this.renderSuggestion()}
                 />
-                <Input 
-                    id="date"
-                    data-name="dateStart"
-                    label="Start date"
-                    value={dateStart}
-                    onChange={this.setDate}
-                    type="date"
-                />
-                <Input 
-                    id="date"
-                    data-name="dateEnd"
-                    label="End date"
-                    value={dateEnd}
-                    onChange={this.setDate}
-                    width="200px"
-                    type="date"
-                />
-                <AutoCompleteWraper>
-                    <Input
-                        id="critic-names"
-                        value={this.state.name}
-                        onChange={this.onTextChanged}
-                        type="text"
-                        label="Get all movie reviews by critic names"
-                        // onKeyUp={(e)=>this.getReviewsByCriticsName(this.state.name)}
-                    />
-                    <Button 
-                        onClick={this.getReviewsByCriticsName}
-                    >Submit</Button>
-                    {this.renderSuggestion()}
-                </AutoCompleteWraper>
-                
-                <Content res={this.state.res} />
+                <Content res={res} />
                 <Pagination 
                     page={page} 
                     hasMore={has_more}
