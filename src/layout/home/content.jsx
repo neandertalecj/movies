@@ -4,6 +4,7 @@ import ListGroup from '../../components/list-group/ListGroup'
 import ListGroupItem from '../../components/list-group/ListGroupItem'
 import Image from '../../components/image/Image'
 import Loading from '../preloader/Preloader'
+import { withContext } from '../../context'
 
 import './home.css'
 
@@ -64,4 +65,4 @@ const Content = (props) => {
     )
 }
 
-export default Loading('res')(Content)
+export default withContext(Loading('res')(Content))

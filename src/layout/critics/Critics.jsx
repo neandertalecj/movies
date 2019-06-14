@@ -5,6 +5,7 @@ import ListGroupItem from '../../components/list-group/ListGroupItem'
 import Image from '../../components/image/Image'
 import Loading from '../preloader/Preloader'
 
+import './Critics.css'
 
 class Critics extends Component {
     state = { 
@@ -32,7 +33,7 @@ class Critics extends Component {
         console.log(results)
         return ( 
             <div>
-                <h1>hello</h1>
+                <h1>Critics</h1>
                 {/* {results.map(({ display_name }) => 
                     <ul>
                         <li>{display_name}</li>
@@ -50,26 +51,17 @@ class Critics extends Component {
                         key={seo_name} 
                         className="in-row"
                     >
-                        <h2>{display_name}</h2>
-                        {/* <p className="headline">{headline}</p> */}
+                        <h3>{display_name}</h3>
                         <div className="card-body">
-                            <div className="image">
-                                {/* <img className="img" src={multimedia.src} alt="movies foto" /> */}
+                            <div className="image-critic">
                                {multimedia && <Image 
                                     className="img" 
                                     src={multimedia ? multimedia.resource.src : null}
                                     width={100}
                                     height={280}
-                                />}
-                            </div>
-                            <div className="card-description">
-                                <p>{bio}</p>
-                                {/* <p className="author">By {byline}</p> */}
-                                {/* <p className="author">
-                                    {moment(publication_date).add(0,'year').format('LL')}
-                                </p>
-                                <p className="link-text">{link.suggested_link_text}</p>
-                                <a href={link.url} className="read-review">read review</a> */}
+                                />
+                                }
+                                {bio && <p>{bio}</p>}
                             </div>
                         </div>
                     </ListGroupItem>

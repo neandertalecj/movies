@@ -4,12 +4,13 @@ import Input from '../../components/input/Input'
 import AutoCompleteWraper from '../../components/autocomplete-wraper/autoCompleteWraper'
 import Button from '../../components/button/Button'
 import { REVIEWSORT } from '../../Conf/config'
+import { withContext } from '../../context'
 
 import './Filter.css'
 
 const Filter = ({
-    onChangeSetOrder, valueOrder, onChangeSetDate, valueDateStart, valueDateEnd,
-    onChangeTextChanged, valueName, onClickByCriticsName, renderReviews
+    onChangeSetOrder, order, onChangeSetDate, dateStart, dateEnd,
+    onChangeTextChanged, name, onClickByCriticsName, renderReviews
 }) => {
     return (
         <div>
@@ -17,14 +18,14 @@ const Filter = ({
                 <Select
                     title="Select"
                     onChange={onChangeSetOrder} 
-                    value={valueOrder} 
+                    value={order} 
                     filter={REVIEWSORT}
                 />
                 <Input 
                     id="date"
                     data-name="dateStart"
                     label="Start date"
-                    value={valueDateStart}
+                    value={dateStart}
                     onChange={onChangeSetDate}
                     type="date"
                 />
@@ -32,7 +33,7 @@ const Filter = ({
                     id="date"
                     data-name="dateEnd"
                     label="End date"
-                    value={valueDateEnd}
+                    value={dateEnd}
                     onChange={onChangeSetDate}
                     type="date"
                 />
@@ -41,7 +42,7 @@ const Filter = ({
             <AutoCompleteWraper>
                     <Input
                         id="critic-names"
-                        value={valueName}
+                        value={name}
                         onChange={onChangeTextChanged}
                         type="text"
                         label="Get all movie reviews by critic names"
@@ -53,4 +54,4 @@ const Filter = ({
     )
 }
 
-export default Filter
+export default withContext(Filter)

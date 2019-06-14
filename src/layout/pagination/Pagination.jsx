@@ -4,9 +4,11 @@ import Button from '../../components/button/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import './Pagination.css'
+import { withContext } from '../../context'
 
-const Pagination = ({ page, hasMore, onClick }) => {
-  console.log('P', page)
+const Pagination = ({ page, onPagination, res }) => {
+  const { hasMore = true } = res
+  console.log('P', res)
 
     const renderPaginationBtns = (onClick, page, hasMore) => {
       
@@ -26,7 +28,7 @@ const Pagination = ({ page, hasMore, onClick }) => {
       return btnsArr.map(num => {
         return <Button
           key={num-1}
-          onClick={onClick}
+          onClick={onPagination}
           data-name={num-1}
           className={num -1 === page ? 'active' : ''}
         >{num}</Button>
@@ -38,15 +40,15 @@ const Pagination = ({ page, hasMore, onClick }) => {
         <ButtonGroup> 
             {page !== 0 && <Button
                 data-name="prev"
-                onClick={onClick}
+                onClick={onPagination}
             >
                 <FontAwesomeIcon icon={faAngleLeft} />
             </Button>}  
             
-            {renderPaginationBtns(onClick, page, hasMore)}
+            {renderPaginationBtns(onPagination, page, hasMore)}
             
             {hasMore !== false &&  <Button
-                onClick={onClick} 
+                onClick={onPagination} 
                 data-name="next"
             >
                 <FontAwesomeIcon icon={faAngleRight} />  
@@ -57,4 +59,4 @@ const Pagination = ({ page, hasMore, onClick }) => {
     )
 }
 
-export default Pagination
+export default withContext(Pagination)
