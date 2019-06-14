@@ -1,5 +1,5 @@
-select{
-    margin-left: 20px;
+.select select{
+    /* margin-left: 20px; */
    background: transparent;
    width: 200px;
    padding: 5px;
@@ -11,6 +11,21 @@ select{
    /* -webkit-appearance: none; */
 }
 
-select:focus{
-    outline: 2px solid #10655C;
+.select select:focus{
+    /* outline: 2px solid #10655C; */
+}
+
+.select select {
+    box-sizing: border-box;
+    height: 40px;
+    width: 100%;
+    /* padding: 11px; */
+    border: 1px solid #EBEBEB;
+}
+.select p {
+    margin: 0;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
 }

@@ -12,38 +12,42 @@ const Filter = ({
     onChangeTextChanged, valueName, onClickByCriticsName, renderReviews
 }) => {
     return (
-            <div>
-            <Select
-                onChange={onChangeSetOrder} 
-                value={valueOrder} 
-                filter={REVIEWSORT}
-            />
-            <Input 
-                id="date"
-                data-name="dateStart"
-                label="Start date"
-                value={valueDateStart}
-                onChange={onChangeSetDate}
-                type="date"
-            />
-            <Input 
-                id="date"
-                data-name="dateEnd"
-                label="End date"
-                value={valueDateEnd}
-                onChange={onChangeSetDate}
-                type="date"
-            />
-            <AutoCompleteWraper>
-                <Input
-                    id="critic-names"
-                    value={valueName}
-                    onChange={onChangeTextChanged}
-                    type="text"
-                    label="Get all movie reviews by critic names"
+        <div>
+            <div className="filter-wraper">
+                <Select
+                    title="Select"
+                    onChange={onChangeSetOrder} 
+                    value={valueOrder} 
+                    filter={REVIEWSORT}
                 />
-                <Button onClick={onClickByCriticsName}>Submit</Button>
-                {renderReviews}
+                <Input 
+                    id="date"
+                    data-name="dateStart"
+                    label="Start date"
+                    value={valueDateStart}
+                    onChange={onChangeSetDate}
+                    type="date"
+                />
+                <Input 
+                    id="date"
+                    data-name="dateEnd"
+                    label="End date"
+                    value={valueDateEnd}
+                    onChange={onChangeSetDate}
+                    type="date"
+                />
+
+            </div>
+            <AutoCompleteWraper>
+                    <Input
+                        id="critic-names"
+                        value={valueName}
+                        onChange={onChangeTextChanged}
+                        type="text"
+                        label="Get all movie reviews by critic names"
+                    />
+                    <Button onClick={onClickByCriticsName}>Submit</Button>
+                    {renderReviews}
             </AutoCompleteWraper>
          </div>
     )

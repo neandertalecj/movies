@@ -29,7 +29,6 @@ const Input = ({
         className={classes}
         {...attrs}
         onChange={onChange}
-        onKeyUp={onKeyUp}
         value={value}
       />
       {error
